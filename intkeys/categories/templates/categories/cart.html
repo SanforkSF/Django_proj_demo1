@@ -1,0 +1,32 @@
+{% extends 'categories/home.html' %}
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+<h3 class="text-center mt-4 mb-4">Your cart {%if not cart.products.count %}is empty{% endif %}</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Image</th>
+      <th scope="col">Price</th>
+      <th scope="col">Amount</th>
+        <th scope="col">Total price</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for item in cart.products.all %}
+    <tr>
+      <th scope="row">{{ item.product.title }}</th>
+      <td>
+         {% if item.product.image %}
+            <img class="img-fluid" src="{{ item.product.image.url }}" width="200px">
+                {% else %}
+            no photo
+        {% endif %}</td>
+      </td>
+      <td>{{item.product.price}}</td>
+      <td>{{ item.qty }}</td>
+      <td>{{ item.final_price }}</td>
+    </tr>
+  {% endfor %}
+{% endblock %}

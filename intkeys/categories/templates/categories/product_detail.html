@@ -1,0 +1,24 @@
+{% extends 'categories/home.html' %}
+{% block title %}{{ product.title }}{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-4">
+            <ul>
+                <h2>{{ product.title }}</h2>
+                <img src="{{ product.image.url }}" width="600px">
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <ul>
+                <li><h3>Price {{ product.price }}$</h3></li>
+                <li>{{ product.description }}</li>
+                <li>
+                    <a href="{% url 'add_to_cart' slug=product.slug %}"><button class="btn btn-danger">Add to cart</button></a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+{% endblock %}

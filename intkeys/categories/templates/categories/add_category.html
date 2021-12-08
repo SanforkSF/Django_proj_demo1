@@ -1,0 +1,15 @@
+{% extends 'categories/home.html' %}
+{% block title %}Add category{% endblock %}
+
+{% block content %}
+<h1>Add category</h1>
+
+<form action="{% url 'add_cat' %}" method="post">
+    {% csrf_token %}
+
+    {{ form.name }} <br>
+    {{ form.slug }}
+
+    <button type="submit"class="btn btn-success">Create category</button>
+</form>
+{% endblock %}
