@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+All posts
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Posts</h1>
+    {% for article in articles %}
+    <div class="alert alert-dark">
+    <h2>{{ article.title }}</h2><br>
+        {{ article.intro }}<br>
+        {{ article.date.date() }}<br>
+        <a href="/posts/{{ article.id }}">
+            <button class="btn btn-warning">Details</button>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
