@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title%}All users{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+        <h3>All registered users:</h3>
+        <ul>
+        {% for i in users %}
+            <div class="alert alert-dark">
+                <li><h5>Name: {{ i.first_name}} {{ i.last_name}}, Username: {{ i.username}}, Role: {{ i.user_role }}</h5><br>
+                <a href="/users_view_adm/{{i.username}}/set_role"><button class="btn btn-info">Change role</button></a>
+                <a href="/users_view_adm/{{i.username}}/delete"><button class="btn btn-danger">Delete(danger)</button></a></li>
+            </div>
+        {% endfor %}
+        </ul>
+</div>
+{% endblock %}

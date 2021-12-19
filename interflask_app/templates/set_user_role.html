@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title%}Change {{ user.username }} role{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h3>Change role of user "{{ user.username }}":</h3>
+    <form method="post">
+        {{ form.role.label }}: {{ form.role }}
+        {{ form.submit }}
+        {{ form.cancel }}
+    </form>
+
+</div>
+{% endblock %}
