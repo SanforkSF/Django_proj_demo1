@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title%}Add interview{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+  <!-- Content here -->
+
+<h1>Add interview</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.candidate_name.label }}<br>
+            {{ form.candidate_name(size=64) }}
+            {% for error in form.candidate_name.errors %}
+                <span style="color: red;">*{{ error }}*</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.questions_set.label }}<br>
+            {{ form.questions_set }}
+            {% for error in form.questions_set.errors %}
+                <span style="color: red;">*{{ error }}*</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.users_set.label }}<br>
+            {{ form.users_set }}
+            {% for error in form.users_set.errors %}
+                <span style="color: red;">*{{ error }}*</span>
+            {% endfor %}
+        </p>
+                <p>
+            {{ form.start_time.label }}<br>
+            {{ form.start_time }}
+            {% for error in form.start_time.errors %}
+                <span style="color: red;">*{{ error }}*</span>
+            {% endfor %}
+        </p>
+
+        <p><button class="btn btn-success" type="submit">Add</button></p>
+    </form>
+
+</div>
+{% endblock %}

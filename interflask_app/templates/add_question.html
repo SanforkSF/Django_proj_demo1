@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title%}Add question{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+  <!-- Content here -->
+
+<h1>Add question</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+                <p>
+            {{ form.description.label }}<br>
+            {{ form.description(size=64) }}
+            {% for error in form.description.errors %}
+                <span style="color: red;">*{{ error }}*</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.question_text.label }} (now: {{current_user.first_name}})<br>
+            {{ form.question_text(cols="100", rows="10") }}
+            {% for error in form.question_text.errors %}
+                <span style="color: red;">*{{ error }}*</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.answer.label }}<br>
+            {{ form.answer(cols="100", rows="5") }}
+            {% for error in form.answer.errors %}
+                <span style="color: red;">*{{ error }}*</span>
+            {% endfor %}
+        </p>
+
+
+        <p>
+            {{ form.max_grade.label }}<br>
+            {{ form.max_grade }}
+            {% for error in form.max_grade.errors %}
+                <span style="color: red;">*{{ error }}*</span>
+            {% endfor %}
+        </p>
+
+        <p><button class="btn btn-success" type="submit">Add</button></p>
+    </form>
+
+</div>
+{% endblock %}

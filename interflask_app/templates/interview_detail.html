@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title%}Interview of {{ interview.candidate_name }}{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-center">
+    <h3>Interview of {{ interview.candidate_name }}</h3>
+    </div>
+            <div class="alert alert-dark">
+                <div class="badge badge-warning">
+                    <h5>Interviewers:</h5>
+                    <ul>
+                    {% for interviewer in interview.users_set %}
+                        <li>{{ interviewer }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                <h4>Questions:</h4>
+                    <ul>
+                    {% for question in interview.questions_set %}
+                        <li><h5>{{ question.description }}</h5></li>
+                        <p>{{ question.question_text }}</p>
+                    {% endfor %}
+                    </ul>
+                    Interview time:
+                    <ul>
+                        <li>{{ interview.start_time }}</li>
+                    </ul>
+            </div>
+
+</div>
+{% endblock %}
