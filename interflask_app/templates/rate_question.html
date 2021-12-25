@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title%}Add interview{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+  <!-- Content here -->
+
+<h1>Rate answer on the question "{{question.description}}"</h1>
+    <h4>Max grade: {{question.max_grade}}</h4>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.grade_field.label }}<br>
+            {{ form.grade_field }}
+
+            {% for error in form.grade_field.errors %}
+                <span style="color: red;">*{{ error }}*</span>
+            {% endfor %}
+        </p>
+        <p><button class="btn btn-info" type="submit">Rate</button></p>
+    </form>
+
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title%}Edit user {{ current_user.username }}{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+  <!-- Content here -->
+
+<h1>Edit user {{ current_user.username }}</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+                <p>
+            {{ form.email.label }} (now: {{current_user.email}})<br>
+            {{ form.email(size=32) }}
+            {% for error in form.first_name.errors %}
+                <span style="color: red;">*{{ error }}*</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.first_name.label }} (now: {{current_user.first_name}})<br>
+            {{ form.first_name(size=32) }}
+            {% for error in form.first_name.errors %}
+                <span style="color: red;">*{{ error }}*</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.last_name.label }} (now: {{current_user.last_name}})<br>
+            {{ form.last_name(size=32) }}
+            {% for error in form.last_name.errors %}
+                <span style="color: red;">*{{ error }}*</span>
+            {% endfor %}
+        </p>
+
+
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password }}
+            {% for error in form.password.errors %}
+                <span style="color: red;">*{{ error }}*</span>
+            {% endfor %}
+        </p>
+
+        <p>{{ form.submit }}
+            </p>
+    </form>
+    <a href="{{ url_for('index')}}"><button>Cancel</button></a>
+</div>
+{% endblock %}

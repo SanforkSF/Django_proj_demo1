@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title%}{{ user.username }}{% endblock %}
+
+{% block body %}
+    <div container>
+        <h1>Username: {{ user.username }}
+        </h1>
+        <h4>Real name: {{ user.first_name }} {{user.last_name }}</h4>
+        <h4>Role: {{ user.user_role }}</h4>
+        <h4>Email: {{ user.email }}</h4>
+        {% if current_user.username==user.username %}
+        <p><a href="{{ url_for('my_interviews') }}"><button class="btn btn-warning">My interviews</button></a></p>
+        <p><a href="{{ url_for('edit_user') }}"><button class="btn btn-info">Edit profile</button></a></p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title%}My Interviews{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <h3>My Interviews:</h3>
+        <ul>
+        {% for i in list_interview %}
+            <div class="alert alert-dark">
+                <li>
+                <h3>{{ i.candidate_name }}</h3>
+                    Interviewers:
+                    <ul>
+                    {% for interviewer in i.users_set %}
+                        <li>{{ interviewer }}</li>
+                    {% endfor %}
+                    </ul>
+                    Questions:
+                    <ul>
+                    {% for question in i.questions_set %}
+                        <li>{{ question }}</li>
+                    {% endfor %}
+                    </ul>
+                    Interview time:
+                    <ul>
+                        <li>{{ i.start_time }}</li>
+                    </ul>
+                    <a href="/all-interviews/{{i.id}}/delete"><button class="btn btn-danger">Delete</button></a>
+                    <a href="/my-interviews/{{i.id}}"><button class="btn btn-warning">Details</button></a>
+                </li>
+            </div>
+        {% endfor %}
+        </ul>
+
+</div>
+{% endblock %}
