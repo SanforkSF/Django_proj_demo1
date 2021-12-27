@@ -10,6 +10,16 @@
             <div class="alert alert-dark">
                 <li>
                 <h3>{{ i.candidate_name }}</h3>
+                    Final grade:
+                    {% if i.get_final_grade() %}
+                    <div class="badge badge-success">
+                        {{ i.get_final_grade() }}%
+                    </div>
+                {% else %}
+                    <div class="badge badge-dark">
+                        Not completed
+                    </div>
+                {% endif %} <br>
                     Interviewers:
                     <ul>
                     {% for interviewer in i.users_set %}

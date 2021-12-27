@@ -46,6 +46,16 @@
                     <ul>
                         <li>{{ interview.start_time }}</li>
                     </ul>
+                <b>Final Grade:</b>
+                {% if interview.get_final_grade() %}
+                    <div class="badge badge-success">
+                        {{ interview.get_final_grade() }}%
+                    </div>
+                {% else %}
+                    <div class="badge badge-danger">
+                        Not completed
+                    </div>
+                {% endif %}
             </div>
 
 </div>

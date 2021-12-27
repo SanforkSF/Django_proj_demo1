@@ -92,18 +92,55 @@ class Interview(db.Model):
             interviews_list.append((f"{i.id}", f"{i.candidate_name}"))
         return interviews_list
 
+    def get_max_points(self):
+        max_points = 0
+        for q in self.questions_set:
+            max_points += q.max_grade
+        return max_points
+
+    def get_count_interviewers(self):
+        count_interviewers = 0
+        for i in self.users_set:
+            count_interviewers += 1
+        return count_interviewers
+
+    def get_count_questions(self):
+        count_questions = 0
+        for q in self.questions_set:
+            count_questions += 1
+        return count_questions
+
+    def get_final_grade(self):
+        max_points = self.get_max_points()
+        count_users = self.get_count_interviewers()
+        count_questions = self.get_count_questions()
+        user_points = 0
+        count_votes = 0
+        check_full = False
+
+        for i in Grade.query.filter_by(interview_id=self.id):
+            if i.grade:
+                user_points += i.grade
+                count_votes += 1
+        if count_votes == count_users * count_questions:
+            check_full = True
+
+        if check_full:
+            result = (user_points / count_users) / max_points * 100
+            return round(result, 2)
+
 
 class Grade(db.Model):
     __tablename__ = 'grades'
 
     id = db.Column(db.Integer, primary_key=True)
-    question_id = db.Column(db.Integer, db.ForeignKey('questions.id'))
-    question = db.relationship("Question", backref="grades")
-    interviewer_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    interviewer = db.relationship("User", backref="grades")
-    interview_id = db.Column(db.Integer, db.ForeignKey('interviews.id'))
-    interview = db.relationship("Interview", backref="grades")
-    grade = db.Column(db.Integer,  nullable=True)
+    question_id = db.Column(db.Integer, db.ForeignKey('questions.id', ondelete='CASCADE'))
+    question = db.relationship("Question", backref="grades", cascade="all,delete")
+    interviewer_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
+    interviewer = db.relationship("User", backref="grades", cascade="all,delete")
+    interview_id = db.Column(db.Integer, db.ForeignKey('interviews.id', ondelete='CASCADE'))
+    interview = db.relationship("Interview", backref="grades", cascade="all,delete")
+    grade = db.Column(db.Integer, nullable=True)
 
     def __repr__(self):
         return f"{self.interviewer} gives {self.interview} {self.grade} for question '{self.question}'"

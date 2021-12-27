@@ -85,8 +85,7 @@ class GradeForm(FlaskForm):
 
 
 class GradeRateForm(FlaskForm):
-    # grade_field = IntegerField("Enter Grade")
     rate_picks = [
         (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10)
     ]
-    grade_field = SelectField("Choose Questions", choices=rate_picks)
+    grade_field = SelectField("Choose Questions", choices=rate_picks)  # numberange
