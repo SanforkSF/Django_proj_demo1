@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField, TextAreaField, IntegerField,\
     FloatField, SelectMultipleField, DateTimeField
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Optional
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Optional, NumberRange
 from interflask_app.models import *
 
 
@@ -45,7 +45,7 @@ class QuestionForm(FlaskForm):
 
     question_text = TextAreaField("Question", validators=[DataRequired()])
     description = StringField("Short description", validators=[DataRequired()])
-    answer = TextAreaField("Answer", validators=[DataRequired()])
+    answer = TextAreaField("Answer")
     max_grade = IntegerField("Maximal Grade", validators=[DataRequired()], default=10)
     submit = SubmitField("Add")
 
@@ -88,4 +88,4 @@ class GradeRateForm(FlaskForm):
     rate_picks = [
         (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10)
     ]
-    grade_field = SelectField("Choose Questions", choices=rate_picks)  # numberange
+    grade_field = SelectField("Choose Questions", choices=rate_picks)

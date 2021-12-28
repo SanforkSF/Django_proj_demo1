@@ -11,7 +11,9 @@
                 <li>
                 <h3>{{ q.description }}</h3>
                 Question: {{ q.question_text }}<br>
+                    {% if q.answer %}
                 Answer: {{ q.answer}}<br>
+                    {% endif %}
                 Max grade: {{ q.max_grade }} <br>
                     {% if current_user.user_role != 'Guest' %}
                 <a href="/question/{{ q.id }}/delete"><button class="btn btn-danger">Delete</button></a>
@@ -20,6 +22,11 @@
             </div>
         {% endfor %}
         </ul>
-
+    {% if prev_url %}
+    <a href="{{ prev_url }}"><button class="btn btn-outline-dark">Previous page</button></a>
+    {% endif %}
+    {% if next_url %}
+    <a href="{{ next_url }}"><button class="btn btn-outline-dark">Next page</button></a>
+    {% endif %}
 </div>
 {% endblock %}

@@ -6,6 +6,9 @@
 <div class="container-fluid">
     <h3>My Interviews:</h3>
         <ul>
+        {% if list_interview|length == 0 %}
+            <h5>No any interview yet.</h5>
+        {% else %}
         {% for i in list_interview %}
             <div class="alert alert-dark">
                 <li>
@@ -41,6 +44,7 @@
                 </li>
             </div>
         {% endfor %}
+            {% endif %}
         </ul>
 
 </div>

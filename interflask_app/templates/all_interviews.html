@@ -43,6 +43,11 @@
             </div>
         {% endfor %}
         </ul>
-
+    {% if prev_url %}
+    <a href="{{ prev_url }}"><button class="btn btn-outline-dark">Previous page</button></a>
+    {% endif %}
+    {% if next_url %}
+    <a href="{{ next_url }}"><button class="btn btn-outline-dark">Next page</button></a>
+    {% endif %}
 </div>
 {% endblock %}

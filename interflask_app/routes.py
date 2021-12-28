@@ -69,12 +69,20 @@ def user(username):
 
 
 @app.route('/users_view_adm')
+@login_required
 def users_view_adm():
-    users = User.query.order_by(User.id.desc()).all()
-    return render_template('users_view_adm.html', users=users)
+    page = request.args.get('page', 1, type=int)
+    users = User.query.order_by(User.id.desc()).paginate(
+        page, app.config['POSTS_PER_PAGE_10'], False)
+    next_url = url_for('users_view_adm', page=users.next_num) \
+        if users.has_next else None
+    prev_url = url_for('users_view_adm', page=users.prev_num) \
+        if users.has_prev else None
+    return render_template('users_view_adm.html', users=users.items, next_url=next_url, prev_url=prev_url)
 
 
 @app.route('/users_view_adm/<username>/set_role', methods=['POST', 'GET'])
+@login_required
 def user_set_role(username):
     if current_user.is_authenticated and current_user.user_role == 'Admin':
         user = User.query.filter_by(username=username).first_or_404()
@@ -90,7 +98,8 @@ def user_set_role(username):
         return redirect(url_for('index'))
 
 
-@app.route('/users_view_adm/<username>/delete', methods=['POST', 'GET']) # /admin address change
+@app.route('/users_view_adm/<username>/delete', methods=['POST', 'GET'])
+@login_required
 def user_delete(username):
     if current_user.is_authenticated and current_user.user_role == 'Admin':
         try:
@@ -149,8 +158,14 @@ def edit_user():
 @app.route('/all-questions')
 @login_required
 def all_questions():
-    questions = Question.query.all()
-    return render_template('all_questions.html', questions=questions)
+    page = request.args.get('page', 1, type=int)
+    questions = Question.query.order_by(Question.id.desc()).paginate(
+        page, app.config['POSTS_PER_PAGE_10'], False)
+    next_url = url_for('all_questions', page=questions.next_num) \
+        if questions.has_next else None
+    prev_url = url_for('all_interviews', page=questions.prev_num) \
+        if questions.has_prev else None
+    return render_template('all_questions.html', questions=questions.items, next_url=next_url, prev_url=prev_url)
 
 
 @app.route('/add-question', methods=['GET', 'POST'])
@@ -170,6 +185,7 @@ def add_question():
 
 
 @app.route('/question/<id>/delete', methods=['POST', 'GET'])
+@login_required
 def question_delete(id):
     if current_user.is_authenticated and current_user.user_role != 'Guest':
         try:
@@ -184,13 +200,21 @@ def question_delete(id):
         return render_template('permission_denied403.html')
 
 
-@app.route('/all-interviews')
+@app.route('/all-interviews', methods=["GET", "POST"])
+@login_required
 def all_interviews():
-    interviews = Interview.query.all()
-    return render_template('all_interviews.html', interviews=interviews)
+    page = request.args.get('page', 1, type=int)
+    interviews = Interview.query.order_by(Interview.id.desc()).paginate(
+        page, app.config['POSTS_PER_PAGE_3'], False)
+    next_url = url_for('all_interviews', page=interviews.next_num) \
+        if interviews.has_next else None
+    prev_url = url_for('all_interviews', page=interviews.prev_num) \
+        if interviews.has_prev else None
+    return render_template('all_interviews.html', interviews=interviews.items, next_url=next_url, prev_url=prev_url)
 
 
 @app.route('/add-interview', methods=["GET", "POST"])
+@login_required
 def add_interview():
     if current_user.is_authenticated and current_user.user_role != 'Guest':
         form = InterviewForm().picks()
@@ -252,6 +276,7 @@ def my_interviews():
 
 
 @app.route('/my-interviews/<id>')
+@login_required
 def interview_detail(id):
     interview = Interview.query.filter_by(id=id).first_or_404()
     grades = Grade.query.filter_by(interview_id=id)
