@@ -86,22 +86,10 @@
 
 
 {% block body %}
+        <div class="container-fluid">
 <h1>HOMEPAGE</h1>
-        <h3>All registered users:</h3>
-        <ul>
-        {% for i in user_t %}
-            <li>Name: "{{ i.first_name}}", Last name: "{{ i.last_name}}", Username: "{{ i.username}}, Role: {{  i.user_role }}"</li>
-        {% endfor %}
-            <h4>cr us role: {{ current_user.user_role }}</h4>
-        </ul>
-        <h3>All registered questions:</h3>
-        <ul>
-        {% for q in questions %}
-            <li>Description: {{ q.description }}</li>
-
-
-        {% endfor %}
-        </ul>
+        <h3>Hello {{current_user.username}}!</h3>
+        </div>
 {% endblock %}
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

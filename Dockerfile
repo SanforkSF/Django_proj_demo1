@@ -9,14 +9,14 @@ ENV FLASK_APP 'interview.py'
 
 COPY requirements.txt /app/requirements.txt
 
-COPY . /app/
 
 RUN apt-get update && pip install --upgrade pip && \
     apt-get -y install libpq-dev gcc && \
     pip install psycopg2 && pip install -r requirements.txt
 
+COPY . /app/
+
 EXPOSE 5000
-EXPOSE 5432
 
 
 CMD ["python", "interview.py"]

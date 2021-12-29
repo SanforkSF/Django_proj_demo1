@@ -2,6 +2,7 @@ from interflask_app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from interflask_app import login
+from flask import url_for
 
 interview_question = db.Table('interview_question',
                               db.Column('question_id', db.Integer, db.ForeignKey('questions.id'), primary_key=True),
